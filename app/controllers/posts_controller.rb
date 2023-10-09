@@ -5,7 +5,9 @@ class PostsController < ApplicationController
     @posts = current_user.posts.includes(:categories)
   end
 
-  def show; end
+  def show
+    @comments = @post.comments.includes(:user)
+  end
 
   def new
     @post = Post.new
