@@ -27,7 +27,13 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-
+    if @post.update(post_params)
+      flash[:notice] = 'Post updated successfully'
+      redirect_to post_path(@post)
+    else
+      flash.now[:alert] = 'Post update failed'
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
