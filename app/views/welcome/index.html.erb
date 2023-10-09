@@ -10,23 +10,26 @@
     <div style="width: 45rem">
       <% @posts.each_with_index do |post, index| %>
         <div class="card mb-2 p-1">
-          <img src="https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" class="card-img-top" style="height: 200px; object-fit: cover" alt="">
-          <div class="card-body">
-            <div class="card-title d-flex flex-row justify-content-between align-items-center text-center">
+          <div class="card-header">
+            <div class="d-flex flex-row justify-content-between align-items-center text-center">
               <div class="d-flex flex-row justify-content-center text-center">
-                <h5 class="me-2"><%= post.title %></h5>
+                <h5 class="card-title me-2"><%= post.title %></h5>
                 <span>| <%= post.user.email %></span>
               </div>
               <% if index < 3 %>
                 <span class="badge rounded-pill text-bg-danger">HOT</span>
               <% end %>
             </div>
-            <p class="card-text"><%= post.content %></p>
           </div>
 
           <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <p class="card-text"><%= post.content %></p>
+          </div>
+
+          <img src="https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" class="card-img px-4" style="height: 200px; object-fit: cover" alt="">
+
+          <div class="card-body">
+            <%= link_to 'View post', post_path(post), class: "btn btn-sm btn-secondary" %>
           </div>
         </div>
       <% end %>
