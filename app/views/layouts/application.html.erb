@@ -11,30 +11,36 @@
   </head>
 
   <body>
-    <nav class="navbar bg-body-tertiary">
-      <div class="container">
-        <%= link_to "DISASTER.forum", root_path, class:"navbar-brand" %>
-        <div>
-          <% if user_signed_in? %>
-            <div class="btn-group">
-              <button class="btn btn-black dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                <span><i class="fa-solid fa-user"></i> <%= current_user.email %></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><%= link_to 'Sign out', destroy_user_session_path, class: "dropdown-item text-end", data: {'turbo-method': :delete} %></li>
-              </ul>
-            </div>
-          <% else %>
-            <%= link_to new_user_session_path do %>
-              <span><i class="fa-solid fa-user"></i> Login</span>
+    <header class="mb-2">
+      <nav class="navbar bg-body-tertiary">
+        <div class="container">
+          <%= link_to "DISASTER.forum", root_path, class:"navbar-brand" %>
+          <div>
+            <% if user_signed_in? %>
+              <div class="btn-group">
+                <button class="btn btn-black dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                  <span><i class="fa-solid fa-user"></i> <%= current_user.email %></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><%= link_to 'Sign out', destroy_user_session_path, class: "dropdown-item text-end", data: {'turbo-method': :delete} %></li>
+                </ul>
+              </div>
+            <% else %>
+              <%= link_to new_user_session_path do %>
+                <span><i class="fa-solid fa-user"></i> Login</span>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% flash.each do |key, message| %>
+      <div class="alert <%= flash_class(key) %> alert-dismissible fade show container mt-2" role="alert">
+        <p class=""><%= message %></p>
+        <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
 
     <%= yield %>
   </body>
