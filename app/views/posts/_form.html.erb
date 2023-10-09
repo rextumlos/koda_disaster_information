@@ -1,0 +1,48 @@
+<%= form_with model: post do |form| %>
+  <% if post.errors.any? %>
+    <ul>
+      <% post.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="mb-2">
+    <%= form.label 'Category', class: "form-label" %>
+    <div class="d-flex flex-row align-items-center text-center p-2 form-control">
+      <div class="">
+        <% Category.all.each do |category| %>
+          <%= form.check_box :category_ids, { multiple: true, class: "me-1" }, category.id, nil %>
+          <span class="me-2"><%= category.category %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :address, class: "form-label" %>
+    <%= form.text_field :address, class: "form-control" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :content, class: "form-label" %>
+    <%= form.text_area :content, class: "form-control", style: "height: 150px" %>
+  </div>
+
+  <div class="mb-2">
+    <%= form.label :image, class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="card-body px-0 d-flex flex-row justify-content-between">
+    <%= link_to 'Back to post', post_path(post), class:"btn btn-secondary" if action_name == "edit" %>
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+
+
+<% end %>

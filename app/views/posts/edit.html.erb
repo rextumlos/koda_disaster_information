@@ -1,2 +1,11 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<div class="container">
+  <div class="card">
+
+    <h2 class="card-body text-center">Edit post</h2>
+
+    <div class="card-body">
+      <%= render partial:'form', locals: {post: @post} %>
+    </div>
+  </div>
+
+</div>
