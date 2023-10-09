@@ -32,7 +32,7 @@
         <div class="card-body d-flex flex-row">
           <a href="#comments" class="btn btn-sm btn-secondary me-2">View comments</a>
           <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-primary me-2" if @post.user == current_user %>
-          <%= button_to 'Delete', post_path(@post), method: :delete, class: "btn btn-sm btn-danger me-2" if @post.user == current_user %>
+          <%= button_to 'Delete', post_path(@post), method: :delete, class: "btn btn-sm btn-danger me-2", data: {turbo_method: :delete, turbo_confirm: 'WARNING: All of its comments will be deleted. Continue?'} if @post.user == current_user %>
         </div>
       </div>
     </div>
