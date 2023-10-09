@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resource :user, except: [:new , :edit, :show, :update, :destroy, :create] do
     resources :posts, only: :index
   end
+
+  resources :posts
 end
