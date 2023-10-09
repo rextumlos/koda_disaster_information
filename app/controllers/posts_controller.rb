@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-
+    @posts = current_user.posts.includes(:categories)
   end
 
   def show
@@ -23,4 +23,5 @@ class PostsController < ApplicationController
   def destroy
 
   end
+
 end
