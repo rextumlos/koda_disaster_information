@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   resource :user, except: [:new , :edit, :show, :update, :destroy, :create] do
     resources :posts, only: :index
+    resources :comments, only: :index
   end
 
-  resources :posts
+  resources :posts, except: :index do
+    resources :comments, except: [:index, :show]
+  end
 end
