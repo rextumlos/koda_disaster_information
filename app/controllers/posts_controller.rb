@@ -9,6 +9,8 @@ class PostsController < ApplicationController
 
   def show
     @comments = @post.comments.includes(:user)
+                     .order(created_at: :desc)
+                     .page(params[:page]).per(5)
     @comment = @post.comments.build
   end
 

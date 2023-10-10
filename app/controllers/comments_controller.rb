@@ -4,6 +4,8 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
   def index
     @comments = current_user.comments.includes(:post)
+                            .order(created_at: :desc)
+                            .page(params[:page]).per(5)
   end
 
   def create
@@ -20,12 +22,14 @@ class CommentsController < ApplicationController
 
   end
 
-  def edit; end
+  def edit
+    session[:return_to] ||= request.referer
+  end
 
   def update
     if @comment.update(comment_params)
       flash[:notice] = "Comment updated successfully"
-      redirect_to post_path(@post)
+      redirect_to session.delete(:return_to)
     else
       flash[:alert] = "Comment update failed"
       render :edit, status: :unprocessable_entity
