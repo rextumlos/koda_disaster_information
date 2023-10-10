@@ -5,7 +5,7 @@
 
   <div class="w-100 d-flex flex-row justify-content-center">
     <div style="width: 45rem">
-      <div class="card mb-2 p-1">
+      <div class="card mb-3 p-1">
         <div class="card-header">
           <div class="d-flex flex-row mb-2" style="margin-left: -0.3rem">
             <% @post.categories.each do |category| %>
@@ -41,6 +41,17 @@
           <h3>Comments</h3>
         </div>
 
+        <div class="mb-2">
+          <% if user_signed_in? %>
+            <%= form_with model: @comment, url: post_comments_path(@post), method: :post, class:"d-flex flex-row" do |form| %>
+              <%= form.text_field :content, placeholder:"Write a comment...", class:"form-control me-2", required: true %>
+              <%= form.submit "Send", class:"btn btn-primary h-100" %>
+            <% end %>
+          <% else %>
+            <%= link_to "You need to login before commenting to a post.", new_user_session_path, class:"btn btn-secondary w-100" %>
+          <% end %>
+        </div>
+
         <% @comments.each do |comment| %>
           <div class="card mb-2 p-1">
             <div class="card-body">
@@ -60,10 +71,6 @@
             </div>
           </div>
         <% end %>
-
-        <div>
-          <%= link_to 'Add new comment', new_post_comment_path(@post), class:'btn btn-primary w-100' %>
-        </div>
 
       </div>
     </div>
