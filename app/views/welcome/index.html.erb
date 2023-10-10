@@ -32,7 +32,7 @@
             <p class="card-text"><%= post.content %></p>
           </div>
 
-          <img src="https://images.unsplash.com/photo-1624555130581-1d9cca783bc0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" class="card-img px-4" style="height: 200px; object-fit: cover" alt="">
+          <%= image_tag post.image.url, class:"card-img px-4", style:"height: 200px; object-fit: cover" if post.image.present? %>
 
           <div class="card-body">
             <%= link_to 'View post', post_path(post), class: "btn btn-sm btn-secondary" %>
