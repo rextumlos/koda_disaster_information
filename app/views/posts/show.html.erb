@@ -38,7 +38,7 @@
 
       <div id="comments">
         <div class="comment-header w-100 border-bottom mb-3">
-          <h3>Comments</h3>
+          <h3><%= "#{@post.comments_count} #{@post.comments_count == 1 ? "Comment" : "Comments"}" %></h3>
         </div>
 
         <div class="mb-2">

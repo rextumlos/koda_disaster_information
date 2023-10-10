@@ -21,7 +21,7 @@
                 <h5 class="card-title me-2"><%= post.title %></h5>
                 <span>| <%= post.user.email %></span>
               </div>
-              <% if index < 3 %>
+              <% if index < 3 && params[:page] == nil %>
                 <span class="badge rounded-pill text-bg-danger">HOT</span>
               <% end %>
             </div>
@@ -36,9 +36,14 @@
 
           <div class="card-body">
             <%= link_to 'View post', post_path(post), class: "btn btn-sm btn-secondary" %>
+            <%= link_to "#{post.comments_count} #{post.comments_count == 1 ? "Comment" : "Comments"}", "#{post_path(post)}#comments", class: "btn btn-sm btn-secondary" %>
           </div>
         </div>
       <% end %>
+
+      <div class="d-flex justify-content-center">
+        <%= paginate @posts %>
+      </div>
     </div>
   </div>
 

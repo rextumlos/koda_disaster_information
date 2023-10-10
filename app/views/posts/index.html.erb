@@ -20,7 +20,7 @@
                 <h5 class="card-title me-2"><%= post.title %></h5>
                 <span>| <%= post.created_at %></span>
               </div>
-              <% if index < 3 %>
+              <% if index < 3 && params[:page] == nil %>
                 <span class="badge rounded-pill text-bg-danger me-2">HOT</span>
               <% end %>
             </div>
@@ -41,6 +41,10 @@
           </div>
         </div>
       <% end %>
+
+      <div class="d-flex justify-content-center">
+        <%= paginate @posts %>
+      </div>
     </div>
   </div>
 </div>
