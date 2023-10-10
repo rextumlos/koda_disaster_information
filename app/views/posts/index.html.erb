@@ -29,7 +29,7 @@
           </div>
 
           <div class="card-body">
-            <p class="card-text"><%= post.content %></p>
+            <p class="card-text"><%= post.content.truncate_words(30, omission: '... View for more') %></p>
           </div>
 
           <%= image_tag post.image.url, class:"card-img px-4", style:"height: 200px; object-fit: cover" if post.image.present? %>
