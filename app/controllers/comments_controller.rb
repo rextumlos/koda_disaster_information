@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
+  before_action :set_comment, only: [:edit, :update, :destroy]
   def index
     @comments = current_user.comments.includes(:post)
   end
@@ -19,11 +20,16 @@ class CommentsController < ApplicationController
 
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-
+    if @comment.update(comment_params)
+      flash[:notice] = "Comment updated successfully"
+      redirect_to post_path(@post)
+    else
+      flash[:alert] = "Comment update failed"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -34,6 +40,10 @@ class CommentsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:post_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 
   def comment_params
