@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "welcome#index"
 
-  resource :user, except: [:new , :edit, :show, :update, :destroy, :create] do
+  # resource :user, except: [:new , :edit, :show, :update, :destroy, :create] do
+  #   resources :posts, only: :index
+  #   resources :comments, only: :index
+  # end
+
+  namespace :user do
     resources :posts, only: :index
     resources :comments, only: :index
   end
