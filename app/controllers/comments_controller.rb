@@ -19,13 +19,15 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    session[:return_to] ||= request.referer
+    cookies[:return_to] ||= request.referer
+    # session[:return_to] ||= request.referer
   end
 
   def update
     if @comment.update(comment_params)
       flash[:notice] = "Comment updated successfully"
-      redirect_to session.delete(:return_to)
+      # redirect_to session.delete(:return_to)
+      redirect_to cookies.delete(:return_to)
     else
       flash[:alert] = "Comment update failed"
       render :edit, status: :unprocessable_entity
