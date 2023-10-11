@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, except: :index
+  before_action :set_post
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :validate_user, only: [:edit, :update]
   before_action :validate_user_or_post_owner, only: :destroy
