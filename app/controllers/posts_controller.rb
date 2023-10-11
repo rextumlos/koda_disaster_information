@@ -2,11 +2,6 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :validate_user, only: [:edit, :update, :destroy]
-  def index
-    @posts = current_user.posts.includes(:categories)
-                         .order(comments_count: :desc)
-                         .page(params[:page]).per(5)
-  end
 
   def show
     @comments = @post.comments.includes(:user)
