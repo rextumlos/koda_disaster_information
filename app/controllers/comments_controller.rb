@@ -4,11 +4,6 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :validate_user, only: [:edit, :update]
   before_action :validate_user_or_post_owner, only: :destroy
-  def index
-    @comments = current_user.comments.includes(:post)
-                            .order(created_at: :desc)
-                            .page(params[:page]).per(5)
-  end
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -21,7 +16,6 @@ class CommentsController < ApplicationController
       flash[:alert] = "Comment creation failed"
       redirect_to post_path(@post)
     end
-
   end
 
   def edit
