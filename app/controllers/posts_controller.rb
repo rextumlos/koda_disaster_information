@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post
   before_action :validate_user, only: [:edit, :update, :destroy]
 
   def show
@@ -62,5 +62,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, :address, :image, category_ids: [])
   end
-
 end
