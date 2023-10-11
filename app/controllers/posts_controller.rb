@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :validate_user, only: [:edit, :update, :destroy]
   def index
     @posts = current_user.posts.includes(:categories)
                          .order(comments_count: :desc)
@@ -55,6 +56,12 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def validate_user
+    return if @post.user == current_user
+    flash[:alert] = 'Unauthorized access'
+    redirect_to post_path(@post)
   end
 
   def post_params
