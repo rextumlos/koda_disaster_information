@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, except: :index
   before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :validate_user, only: [:edit, :update]
+  before_action :validate_user_or_post_owner, only: :destroy
   def index
     @comments = current_user.comments.includes(:post)
                             .order(created_at: :desc)
@@ -50,6 +52,18 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def validate_user
+    return if @comment.user == current_user
+    flash[:alert] = 'Unauthorized access'
+    redirect_to post_path(@post)
+  end
+
+  def validate_user_or_post_owner
+    return if @post.user == current_user || @comment.user == current_user
+    flash[:alert] = 'Unauthorized access'
+    redirect_to post_path(@post)
   end
 
   def comment_params
